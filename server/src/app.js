@@ -30,7 +30,7 @@ function verifyCB(accessToken, refreshToken, profile, done) {
     // console.log('Google profile', accessToken, refreshToken, profile, done)
     done(null, profile)
 }
-
+console.log('--- config', config)
 passport.use(new Strategy(AUTH_OPTIONS, verifyCB))
 
 // Save session to the cookie
