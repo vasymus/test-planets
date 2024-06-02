@@ -9,6 +9,10 @@ jobs:
         env:
             CI: true
             MONGO_URL: mongodb://localhost/planets
+            GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+            GOOGLE_OAUTH_CLIENT_SECRET: ${{ secrets.GOOGLE_OAUTH_CLIENT_SECRET }}
+            COOKIE_KEY_1: ${{ secrets.COOKIE_KEY_1 }}
+            COOKIE_KEY_2: ${{ secrets.COOKIE_KEY_2 }}
         strategy:
             matrix:
                 node-client-version: [ '14.3', '16' ]
