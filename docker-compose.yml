@@ -7,7 +7,7 @@ services:
         ports:
             - "3000:3000"
         volumes:
-            - ./planets:/opt/node_app/app
+            - ./:/opt/node_app/app
         working_dir: /opt/node_app/app/client
         command: tail -f /dev/null
     # backend
@@ -16,7 +16,7 @@ services:
         ports:
             - "8000:8000"
         volumes:
-            - ./planets:/opt/node_app/app
+            - ./:/opt/node_app/app
         working_dir: /opt/node_app/app/server
         command: tail -f /dev/null
     # db
