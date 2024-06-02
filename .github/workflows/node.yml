@@ -8,6 +8,7 @@ jobs:
     build:
         env:
             CI: true
+            MONGO_URL: mongodb://localhost/planets
         strategy:
             matrix:
                 node-client-version: [ '14.3', '16' ]
@@ -19,6 +20,10 @@ jobs:
                 uses: actions/setup-node@v2
                 with:
                     node-version: ${{ matrix.node-client-version }}
+            -   name: MongoDB in GitHub Actions
+                uses: supercharge/mongodb-github-action@1.11.0
+                with:
+                    mongodb-version: 7.0.9
             -   run: npm install --prefix ./client
             -   run: npm run build --prefix ./client
             -   run: npm run test --prefix ./client
@@ -27,6 +32,7 @@ jobs:
                 with:
                     node-version: ${{ matrix.node-server-version }}
             -   run: npm install --prefix ./server
+            -   run: npm run test --prefix ./server
 
 #    deploy:
 #        needs: build
