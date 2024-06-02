@@ -1,7 +1,8 @@
 version: "3.9"
 
 services:
-    planets-client:
+    # frontend
+    client:
         image: node:14.3
         ports:
             - "3000:3000"
@@ -9,8 +10,8 @@ services:
             - ./planets:/opt/node_app/app
         working_dir: /opt/node_app/app/client
         command: tail -f /dev/null
-
-    planets-server:
+    # backend
+    server:
         image: node:20.12.2
         ports:
             - "8000:8000"
@@ -18,7 +19,7 @@ services:
             - ./planets:/opt/node_app/app
         working_dir: /opt/node_app/app/server
         command: tail -f /dev/null
-
+    # db
     mongo:
         image: mongo:7.0.9
         environment:
@@ -26,7 +27,7 @@ services:
             MONGO_INITDB_ROOT_PASSWORD: root
         volumes:
             - mongo-data:/data/db
-
+    # db ui
     mongo-express:
         image: mongo-express
         restart: always
