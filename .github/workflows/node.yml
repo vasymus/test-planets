@@ -6,17 +6,27 @@ on:
         branches: [ main ]
 jobs:
     build:
+        env:
+            CI: true
+        strategy:
+            matrix:
+                node-client-version: [ '14.3', '16' ]
+                node-server-version: [ '20.12.2', '18' ]
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: '20.12.2'
-            - run: npm install --prefix ./server
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: '14.3'
-            - run: npm install --prefix ./client
-            - run: npm run build --prefix ./client
+            -   uses: actions/checkout@v2
+            -   name: Use Node.js for client version ${{ matrix.node-client-version }}
+                uses: actions/setup-node@v2
+                with:
+                    node-version: ${{ matrix.node-client-version }}
+            -   run: npm install --prefix ./client
+            -   run: npm run build --prefix ./client
+            -   run: npm run test --prefix ./client
+            -   name: Use Node.js for server version ${{ matrix.node-server-version }}
+                uses: actions/setup-node@v2
+                with:
+                    node-version: ${{ matrix.node-server-version }}
+            -   run: npm install --prefix ./server
+
 #    deploy:
 #        needs: build
