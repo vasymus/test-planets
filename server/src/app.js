@@ -10,7 +10,9 @@ const api = require('./routes/api')
 
 const app = express()
 
-app.use(helmet())
+// temporary comment out, because set 'Cross-Origin-Opener-Policy' to 'same-origin'
+// which made src="/static/js/some.js" redirect to https
+// app.use(helmet())
 
 app.use(cors({
     origin: 'http://localhost:3000',
